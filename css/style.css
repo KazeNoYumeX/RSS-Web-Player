@@ -1,0 +1,12 @@
+* {
+    font-family: Lucida Sans, Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 50px auto;
+    background-color: #000000;
+}
+
+.hide {
+    display: none;
+}
