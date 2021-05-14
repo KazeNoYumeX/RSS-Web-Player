@@ -68,14 +68,14 @@ use the `rss-ES5.js` script file and declare the `RSSMarquee` function
     <script src="rss-ES5.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+         var feedUrl = ['https://ithelp.ithome.com.tw/rss/series/1227']
+         var rss = document.querySelector('.RSS-ES5');
 
-            var feedUrl = ['https://www.dnoticias.pt/rss/home.xml', 'https://cors-anywhere.herokuapp.com/https://www.buzzfeed.com/world.xml'];
-
-            var elementSelector = document.getElementById('marquee');
-
-            new RSSMarquee(feedUrl, elementSelector);
-        });
+         RSSMarquee = {
+             feedURLs: null, elementContainer: null
+             , options: {speed: null, maxItems: null, hostnameSelector: null}
+         }
+        RSSMarqueeSetting()
     </script>
 </body>
 ```

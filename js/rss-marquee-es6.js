@@ -6,7 +6,7 @@
  */
 
 class RSSMarquee {
-    constructor(feedURLs, elementContainer, options = { speed: 110, maxItems: null, hostnameSelector: null }) {
+    constructor(feedURLs, elementContainer, options = {speed: 110, maxItems: null, hostnameSelector: null}) {
         this._feedURLs = new Array();
 
         if (Array.isArray(feedURLs)) {
@@ -69,7 +69,7 @@ class RSSMarquee {
 
     /**
      * Validate URL (uses URL interface)
-     * 
+     *
      * @param {string} url Url to check
      * @returns {boolean} true if valid
      */
@@ -82,15 +82,7 @@ class RSSMarquee {
         }
     }
 
-    /**
-     * Get Hostname from url string
-     * 
-     * Sample: "http://www.dnoticias.pt/rss/desporto.xml"
-     *         returns -> www.dnoticias.pt
-     * 
-     * @param {string} url url string
-     * @returns {string} hostname
-     */
+    
     getHostname(url) {
         try {
             const u = new URL(url);
@@ -143,7 +135,6 @@ class RSSMarquee {
 
     nextURL() {
         this.increaseIndex();
-
         this.getRSS();
     }
 
@@ -153,10 +144,7 @@ class RSSMarquee {
     }
 
     showHostname(url) {
-        if (!this._options.hostnameSelector) {
-            return;
-        }
-
+        if (!this._options.hostnameSelector) return
         this._options.hostnameSelector.innerText = this.getHostname(url);
     }
 
@@ -166,9 +154,9 @@ class RSSMarquee {
             const animKeyframes = [{
                 transform: 'translateX(0)'
             },
-            {
-                transform: 'translateX(-100%)'
-            }
+                {
+                    transform: 'translateX(-100%)'
+                }
             ];
 
             const animOptions = {
@@ -184,6 +172,9 @@ class RSSMarquee {
             const elementChildNode = document.createElement('span');
             elementChildNode.style.display = 'inline-block';
             elementChildNode.style.paddingLeft = '100%';
+            elementChildNode.style.color = "white";
+            elementChildNode.style.fontSize = "40px"
+            text = text.replace(/â€¢/g, " ")
 
             const textNode = document.createTextNode(text);
 
@@ -216,15 +207,11 @@ class RSSMarquee {
         }
     }
 
-    /**
-     * Fetch RSS 
-     * @param {string} feedURL RSS XML url
-     */
     fetchRSS(feedURL) {
         return new Promise((resolve, reject) => {
             console.info(`Start fetching ${feedURL}...`);
 
-            fetch(feedURL, { mode: 'cors', redirect: 'follow' })
+            fetch(feedURL, {mode: 'cors', redirect: 'follow'})
                 .then((response) => {
                     return response.text();
                 })
@@ -238,17 +225,6 @@ class RSSMarquee {
         });
     }
 
-    /**
-     * Parses RSS XML feed
-     * 
-     * - Select title elementContainer
-     * - add dot separator between "headlines"
-     * - remove <![CDATA[ string
-     * - remove html tags
-     * 
-     * @param {string} xmlText 
-     * @returns {string} parsed feed
-     */
     parseXMLFeed(xmlText) {
         try {
             const parser = new DOMParser();

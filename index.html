@@ -10,42 +10,98 @@
 
 <body>
 <div id='root'>
-    <img class="welcome-logo tar1" src="./res/img/1.jpg" alt="" style="position: absolute;width:50%;top:0;left:0;z-index:10">
-    <img class="welcome-logo tar1s hide" src="./res/img/1.jpg" alt="" style="position: absolute;width:50%;top:0;left:0;z-index:10">
+    <img class="welcome-logo tar1" src="./res/img/1.jpg" alt=""
+         style="position: absolute;width:50%;top:0;left:0;z-index:1">
+    <img class="welcome-logo tar1s hide" src="./res/img/1.jpg" alt=""
+         style="position: absolute;width:50%;top:0;left:0;z-index:1">
     <img class="welcome-logo tar2" src="./res/img/A1.jpg" alt=""
-         style="position: absolute;width:50%;top:0;right:0;z-index:10">
-    <!--    <img class="welcome-logo" src="./res/img/B1.gif" alt="" style="position: absolute;width:50%;bottom:0;right:0;z-index:10">-->
-    <!--    <img class="welcome-logo" src="./res/img/B2.gif" alt="" style="position: absolute;width:50%;bottom:0;left:0;z-index:10">-->
+         style="position: absolute;width:50%;top:0;right:0;z-index:1">
+    style="position: absolute;width:50%;top:0;right:0;z-index:10">
     <video class="videoRsPlayer RsPlayerSource0 tar3"
-           src="./content/media/9553abeddaa65c63715c26aeda60d098_aa66ec44-7f96-c222-50cb-34f68fc47a18.mp4"
-           style="position: absolute;width:50%;bottom:20%;right:0;z-index:1" autoplay="" loop=""></video>
+           src="./res/video/a0.mp4"
+           style="position: absolute;width:50%;bottom:20%;right:0;z-index:2" autoplay preload="auto" autobuffer></video>
     <video class="videoRsPlayer RsPlayerSource0 tar4"
-           src="./content/media/b1183ffddfa502fc5715603763a6a98c_9db6e799-baa1-f7fe-5db5-792ec3927a6c.mp4"
-           style="position: absolute;width:50%;bottom:20%;left:0;z-index:1" autoplay="" loop=""></video>
-    <div style="position: absolute;bottom:10%;left:0;z-index:50;width:100%;">
-        <div class="RSS-ES5"></div>
-    </div>
+           src="./res/video/p0.mp4"
+           style="position: absolute;width:50%;bottom:20%;left:0;z-index:2" autoplay preload="auto" autobuffer></video>
+    <!--    ES5 Version-->
+    <!--    <div style="position: absolute;bottom:10%;left:0;z-index:50;width:100%;">-->
+    <!--        <div class="RSS-ES5"></div>-->
+    <!--    </div>-->
     <div style="position: absolute;bottom:10%;left:0;z-index:50;width:100%;">
         <div class="RSS-ES6"></div>
     </div>
 </div>
-    <script src="rss-marquee.js"></script>
-    <script>
+<script src="rss-marquee-es6.js"></script>
+<!--ES5 Version-->
+<!--<script src="rss-marquee-es5.js"></script>-->
+<script>
+    window.onload = () =>{
+
+        // RSS Marquee
         document.addEventListener('DOMContentLoaded', () => {
-
-            const feedUrl = ['https://cors-anywhere.herokuapp.com/https://www.buzzfeed.com/world.xml',
-                'https://www.dnoticias.pt/rss/home.xml',
-                'https://www.dnoticias.pt/rss/mundo.xml'
-            ];
-
-            const elementSelector = document.getElementById('marquee');
-
-            new RSSMarquee(feedUrl, elementSelector, {
+            const feedUrl = ['https://www.police.ntpc.gov.tw/rss-14-1.html', 'https://ithelp.ithome.com.tw/rss/series/1227']
+            const rss = document.querySelector('.RSS-ES6');
+            new RSSMarquee(feedUrl, rss, {
                 speed: 105,
                 maxItems: 3
             });
         });
-    </script>
-</body>
 
+        // ES5 Version
+        // var feedUrl = ['https://ithelp.ithome.com.tw/rss/series/1227']
+        // var rss = document.querySelector('.RSS-ES5');
+        // new RSSMarquee(feedUrl, elementSelector, {
+        //     speed: 105,
+        //     maxItems: 3
+        // });
+
+        // Media Player
+        let tar = [0, 0, 0, 0]
+        let tar1P = ['./res/img/1.jpg', './res/img/2.jpg']
+        let tar2P = ['./res/img/A1.jpg', './res/img/A2.jpg']
+        let tar3P = ['./res/video/a0.mp4', './res/video/a1.mp4']
+        let tar4P = ['./res/video/p0.mp4', './res/video/p1.mp4']
+
+        const playlitst1 = () => {
+            const tar1 = document.querySelector(".tar1");
+            const tar1s = document.querySelector(".tar1s");
+            tar[1]++
+            if (tar[1] >= 2) {
+                tar[1] = 0;
+                tar1.src = tar1P[tar[1]]
+                tar1.classList.remove("hide")
+                tar1s.classList.add("hide")
+            } else {
+                tar1s.src = tar1P[tar[1]]
+                tar1s.classList.remove("hide")
+                tar1.classList.add("hide")
+            }
+
+            const tar2 = document.querySelector(".tar2");
+            tar[2]++
+            if (tar[2] >= 2) tar[2] = 0;
+            tar2.src = tar2P[tar[2]]
+
+            const tar3 = document.querySelector(".tar3");
+            tar[3]++
+            if (tar[3] >= 2) tar[3] = 0;
+            tar3.style.display = "none"
+            tar3.src = tar3P[tar[3]]
+
+            const tar4 = document.querySelector(".tar4");
+            tar[0]++
+            if (tar[0] >= 2) tar[0] = 0;
+            tar4.style.display = "none"
+            tar4.src = tar4P[tar[0]]
+
+            setTimeout(function () {
+                tar3.style.display = "block"
+                tar4.style.display = "block"
+            }, 800);
+        }
+
+        setInterval(playlitst1, 10000)
+    }
+</script>
+</body>
 </html>
