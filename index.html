@@ -10,18 +10,27 @@
 
 <body>
 <div id='root'>
-    <img class="welcome-logo tar1" src="./res/img/1.jpg" alt="">
-    <img class="welcome-logo tar1s hide" src="./res/img/1.jpg" alt="">
-    <img class="welcome-logo tar2" src="./res/img/A1.jpg" alt="">
-    <video class="videoRsPlayer RsPlayerSource0 tar3"
-           src="./res/video/a0.mp4" autoplay preload="auto" autobuffer></video>
-    <video class="videoRsPlayer RsPlayerSource0 tar4"
-           src="./res/video/p0.mp4" autoplay preload="auto" autobuffer></video>
+    <div>
+        <img class="welcome-logo tar1" src="./res/img/1.jpg" alt=""
+             style="width:300px;height: 300px">
+        <img class="welcome-logo tar1s hide" src="./res/img/1.jpg" alt=""
+             style="width:300px;height: 300px">
+        <img class="welcome-logo tar2" src="./res/img/A1.jpg" alt=""
+             style="width:300px;height: 300px">
+    </div>
+    <div>
+        <video class="videoRsPlayer RsPlayerSource0 tar3"
+               src="./res/video/a0.mp4"
+               style="width:300px;height: 300px" autoplay loop></video>
+        <video class="videoRsPlayer RsPlayerSource0 tar4"
+               src="./res/video/p0.mp4"
+               style="width:300px;height: 300px" autoplay loop preload="auto"></video>
+    </div>
     <!--    ES5 Version-->
     <!--    <div style="position: absolute;bottom:10%;left:0;z-index:50;width:100%;">-->
     <!--        <div class="RSS-ES5"></div>-->
     <!--    </div>-->
-    <div>
+    <div style="z-index:50;width:100%;">
         <div class="RSS-ES6"></div>
     </div>
 </div>
@@ -32,13 +41,11 @@
     window.onload = () =>{
 
         // RSS Marquee
-        document.addEventListener('DOMContentLoaded', () => {
-            const feedUrl = ['https://www.police.ntpc.gov.tw/rss-14-1.html', 'https://ithelp.ithome.com.tw/rss/series/1227']
-            const rss = document.querySelector('.RSS-ES6');
-            new RSSMarquee(feedUrl, rss, {
-                speed: 105,
-                maxItems: 3
-            });
+        const feedUrl = ['https://www.police.ntpc.gov.tw/rss-14-1.html', 'https://ithelp.ithome.com.tw/rss/series/1227']
+        const rss = document.querySelector('.RSS-ES6');
+        new RSSMarquee(feedUrl, rss, {
+            speed: 105,
+            maxItems: 3
         });
 
         // ES5 Version
@@ -94,7 +101,7 @@
             }, 800);
         }
 
-        setInterval(playlitst1, 10000)
+        setInterval(playlitst1, 15000)
     }
 </script>
 </body>
