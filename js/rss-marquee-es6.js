@@ -17,24 +17,17 @@ class RSSMarquee {
 
         const URLvalidation = this._feedURLs.every(this.validateURL);
 
-        if (!URLvalidation) {
-            throw new TypeError('Invalid URL on list');
-        }
+        if (!URLvalidation) throw new TypeError('Invalid URL on list')
 
-        this._urlIndex = 0;
+        this._urlIndex = 0
+        this._anim = null
+        this._newsText = ''
+        this._lastTime = Date.now()
 
-        this._anim = null;
+        if (elementContainer === null) throw new TypeError('Invalid element selector')
 
-        this._newsText = '';
-
-        this._lastTime = Date.now();
-
-        if (elementContainer === null) {
-            throw new TypeError('Invalid element selector');
-        }
-
-        this._elementContainer = elementContainer;
-        this.styleElementContainer();
+        this._elementContainer = elementContainer
+        this.styleElementContainer()
 
         this._options = {
             speed: this.validateSpeed(options.speed),
@@ -55,24 +48,6 @@ class RSSMarquee {
         }
     }
 
-    /**
-     * Set the animation speed
-     * @param {number} speed value between 50-300
-     */
-    set setSpeed(speed) {
-        this._options.speed = this.validateSpeed(speed);
-    }
-
-    get getSpeed() {
-        return this._options.speed;
-    }
-
-    /**
-     * Validate URL (uses URL interface)
-     *
-     * @param {string} url Url to check
-     * @returns {boolean} true if valid
-     */
     validateURL(url) {
         try {
             const u = new URL(url);
@@ -82,7 +57,6 @@ class RSSMarquee {
         }
     }
 
-    
     getHostname(url) {
         try {
             const u = new URL(url);
@@ -121,17 +95,14 @@ class RSSMarquee {
             this._lastTime = Date.now();
         } else {
             if (this._newsText === '') {
-                console.log('delay...');
-                setTimeout(() => {
-                    this.nextURL();
-                }, 5000);
+                console.log('Delay...');
+                setTimeout(() => this.nextURL(), 5000);
             } else {
                 console.log('show again cached saved news');
                 this.showMarquee(this._newsText);
             }
         }
     }
-
 
     nextURL() {
         this.increaseIndex();
@@ -173,7 +144,7 @@ class RSSMarquee {
             elementChildNode.style.display = 'inline-block';
             elementChildNode.style.paddingLeft = '100%';
             elementChildNode.style.color = "white";
-            elementChildNode.style.fontSize = "40px"
+            elementChildNode.style.fontSize = "28px"
             text = text.replace(/â€¢/g, " ")
 
             const textNode = document.createTextNode(text);
@@ -181,7 +152,6 @@ class RSSMarquee {
             elementChildNode.appendChild(textNode);
 
             this._elementContainer.appendChild(elementChildNode);
-
             this._anim = elementChildNode.animate(animKeyframes, animOptions);
 
             this._anim.onfinish = () => {
@@ -202,9 +172,7 @@ class RSSMarquee {
 
     increaseIndex() {
         this._urlIndex += 1;
-        if (this._urlIndex > this._feedURLs.length - 1) {
-            this._urlIndex = 0;
-        }
+        if (this._urlIndex > this._feedURLs.length - 1) this._urlIndex = 0;
     }
 
     fetchRSS(feedURL) {
@@ -238,15 +206,12 @@ class RSSMarquee {
                 // let description = item.getElementsByTagName("description")[0].childNodes[0].nodeValue;
 
                 if (title) {
-                    if (news.length) {
-                        news += '\xa0' + ' • ' + '\xa0';
-                    }
+                    if (news.length) news += '\xa0' + ' • ' + '\xa0'
 
                     title = this.remoteCData(title);
                     title = this.stripTags(title);
 
                     news += title;
-
                     totals += 1;
                 }
 

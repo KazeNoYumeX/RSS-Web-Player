@@ -38,14 +38,59 @@
 <!--ES5 Version-->
 <!--<script src="js/rss-marquee-es5.js"></script>-->
 <script>
-    window.onload = () =>{
+    const playlitst1 = () => {
+
+        // Media Player
+        let tar = [0, 0, 0, 0]
+        let tar1P = ['./res/img/1.jpg', './res/img/2.jpg']
+        let tar2P = ['./res/img/A1.jpg', './res/img/A2.jpg']
+        let tar3P = ['./res/video/a0.mp4', './res/video/a1.mp4']
+        let tar4P = ['./res/video/p0.mp4', './res/video/p1.mp4']
+
+        const tar1 = document.querySelector(".tar1");
+        const tar1s = document.querySelector(".tar1s");
+        tar[1]++
+        if (tar[1] >= 2) {
+            tar[1] = 0;
+            tar1.src = tar1P[tar[1]]
+            tar1.classList.remove("hide")
+            tar1s.classList.add("hide")
+        } else {
+            tar1s.src = tar1P[tar[1]]
+            tar1s.classList.remove("hide")
+            tar1.classList.add("hide")
+        }
+
+        const tar2 = document.querySelector(".tar2");
+        tar[2]++
+        if (tar[2] >= 2) tar[2] = 0;
+        tar2.src = tar2P[tar[2]]
+
+        const tar3 = document.querySelector(".tar3");
+        tar[3]++
+        if (tar[3] >= 2) tar[3] = 0;
+        tar3.classList.remove("hide")
+        tar3.src = tar3P[tar[3]]
+
+        const tar4 = document.querySelector(".tar4");
+        tar[0]++
+        if (tar[0] >= 2) tar[0] = 0;
+        tar4.classList.remove("hide")
+        tar4.src = tar4P[tar[0]]
+
+        setTimeout(function () {
+            tar3.classList.add("hide")
+            tar4.classList.add("hide")
+        }, 800);
+    }
+
+    window.onload = () => {
 
         // RSS Marquee
         const feedUrl = ['https://www.police.ntpc.gov.tw/rss-14-1.html', 'https://ithelp.ithome.com.tw/rss/series/1227']
         const rss = document.querySelector('.RSS-ES6');
-        new RSSMarquee(feedUrl, rss, {
-            speed: 105,
-            maxItems: 3
+        const marquee = new RSSMarquee(feedUrl, rss, {
+            speed: 105
         });
 
         // ES5 Version
@@ -56,52 +101,7 @@
         //     maxItems: 3
         // });
 
-        // Media Player
-        let tar = [0, 0, 0, 0]
-        let tar1P = ['./res/img/1.jpg', './res/img/2.jpg']
-        let tar2P = ['./res/img/A1.jpg', './res/img/A2.jpg']
-        let tar3P = ['./res/video/a0.mp4', './res/video/a1.mp4']
-        let tar4P = ['./res/video/p0.mp4', './res/video/p1.mp4']
-
-        const playlitst1 = () => {
-            const tar1 = document.querySelector(".tar1");
-            const tar1s = document.querySelector(".tar1s");
-            tar[1]++
-            if (tar[1] >= 2) {
-                tar[1] = 0;
-                tar1.src = tar1P[tar[1]]
-                tar1.classList.remove("hide")
-                tar1s.classList.add("hide")
-            } else {
-                tar1s.src = tar1P[tar[1]]
-                tar1s.classList.remove("hide")
-                tar1.classList.add("hide")
-            }
-
-            const tar2 = document.querySelector(".tar2");
-            tar[2]++
-            if (tar[2] >= 2) tar[2] = 0;
-            tar2.src = tar2P[tar[2]]
-
-            const tar3 = document.querySelector(".tar3");
-            tar[3]++
-            if (tar[3] >= 2) tar[3] = 0;
-            tar3.style.display = "none"
-            tar3.src = tar3P[tar[3]]
-
-            const tar4 = document.querySelector(".tar4");
-            tar[0]++
-            if (tar[0] >= 2) tar[0] = 0;
-            tar4.style.display = "none"
-            tar4.src = tar4P[tar[0]]
-
-            setTimeout(function () {
-                tar3.style.display = "block"
-                tar4.style.display = "block"
-            }, 800);
-        }
-
-        setInterval(playlitst1, 15000)
+        setInterval(playlitst1, 20000)
     }
 </script>
 </body>
